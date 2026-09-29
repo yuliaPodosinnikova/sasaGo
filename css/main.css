@@ -1,3 +1,13 @@
+:root {
+    --orange-primary: #FF6B00;
+    --orange-hover: #E56000;
+    --bg-grid: #FFF9F5;
+    --grid-line: #F5E6DC;
+    --text-dark: #1F2328;
+    --text-muted: #808893;
+    --card-shadow: 0 20px 40px rgba(255, 107, 0, 0.08);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,136 +16,391 @@
 }
 
 body {
-    background-color: #F8F9FA;
-    color: #1F2328;
+    background-color: var(--bg-grid);
+    /* Тетрадная сетка на фоне */
+    background-image: 
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--text-dark);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
 }
 
-.app-container {
-    width: 100%;
-    max-width: 1100px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 0 24px;
+/* --- Навбар --- */
+.navbar {
+    height: 72px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-/* --- Шапка --- */
-.top-header {
-    height: 80px;
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 24px;
 }
 
-.user-profile {
+.logo {
     display: flex;
     align-items: center;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-name {
-    font-weight: 700;
-    font-size: 16px;
-    color: #1F2328;
-}
-
-.user-status {
-    font-size: 12px;
-    color: #FF6B00;
-    font-weight: 600;
-}
-
-/* Баланс без картинок */
-.balance-clean {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-}
-
-.balance-number {
-    font-size: 24px;
-    font-weight: 800;
-    color: #FF6B00;
-}
-
-.balance-label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #FF6B00;
-}
-
-/* --- Главный контент по центру --- */
-.main-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 0 80px 0;
-}
-
-.hero-section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Логотип по центру */
-.brand-title {
-    font-size: 56px;
-    font-weight: 900;
-    color: #FF6B00;
-    margin-bottom: 40px;
-    letter-spacing: -1px;
-}
-
-/* Сетка прямоугольных карточек */
-.services-grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.service-card {
-    background-color: #FFFFFF;
-    border-radius: 20px;
-    height: 120px;
-    padding: 24px;
+    gap: 8px;
     text-decoration: none;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--orange-primary);
+    color: #fff;
+    font-weight: 900;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-size: 18px;
 }
 
-.service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(255, 107, 0, 0.12);
-}
-
-.card-title {
+.logo-text {
     font-size: 22px;
     font-weight: 800;
-    color: #1F2328;
+    color: var(--text-dark);
 }
 
-/* Адаптивность под мобильные экраны */
-@media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    .brand-title {
-        font-size: 40px;
-        margin-bottom: 24px;
-    }
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--orange-primary);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-login {
+    background: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+
+.btn-download {
+    background: var(--orange-primary);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-download:hover {
+    background: var(--orange-hover);
+}
+
+/* --- Главная секция --- */
+.hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 24px 100px 24px;
+}
+
+.hero-container {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 60px;
+    align-items: center;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFF0E6;
+    border: 1px solid #FFD4B8;
+    color: var(--orange-primary);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--orange-primary);
+    border-radius: 50%;
+}
+
+.hero-title {
+    font-size: 64px;
+    line-height: 1.05;
+    font-weight: 900;
+    margin-bottom: 24px;
+    letter-spacing: -1.5px;
+}
+
+.orange-text {
+    color: var(--orange-primary);
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 440px;
+    margin-bottom: 36px;
+}
+
+/* Кнопки сторов */
+.store-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.store-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.store-btn:hover {
+    transform: translateY(-2px);
+}
+
+.app-store { background: #000; }
+.google-play { background: var(--orange-primary); }
+
+.store-icon { width: 24px; height: 24px; }
+.store-text { display: flex; flex-direction: column; }
+.store-text .small { font-size: 10px; opacity: 0.8; }
+.store-text .bold { font-size: 14px; font-weight: 700; }
+
+/* --- Виджет справа --- */
+.hero-widget-wrapper {
+    position: relative;
+}
+
+.order-widget {
+    background: #FFFFFF;
+    border-radius: 28px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.widget-tabs {
+    display: flex;
+    background: #F4F4F5;
+    padding: 4px;
+    border-radius: 16px;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.tab-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: var(--orange-primary);
+    color: #fff;
+}
+
+/* Карта */
+.widget-map {
+    height: 140px;
+    background: #FFFDFB;
+    border-radius: 16px;
+    border: 1px solid #F0E2D8;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.map-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(#F3E5DC 1px, transparent 1px),
+        linear-gradient(90deg, #F3E5DC 1px, transparent 1px);
+    background-size: 16px 16px;
+}
+
+.route-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.route-line {
+    fill: none;
+    stroke: var(--orange-primary);
+    stroke-width: 3;
+    stroke-dasharray: 6 4;
+}
+
+.point-start { fill: #FF8833; }
+.point-mid { fill: var(--orange-primary); }
+.point-end { fill: #000; }
+
+.map-tag {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: #3897F0;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+/* Форма */
+.widget-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: #F7F7F8;
+    border-radius: 14px;
+    padding: 0 16px;
+    height: 48px;
+}
+
+.input-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.input-dot.orange { background: var(--orange-primary); }
+.input-dot.black { background: #000; }
+
+.input-group input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-submit {
+    background: var(--orange-primary);
+    color: #fff;
+    border: none;
+    height: 52px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: var(--orange-hover);
+}
+
+.quick-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.tag-chip {
+    background: #F4F4F5;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+/* Плавающая карточка водителя */
+.driver-card {
+    position: absolute;
+    bottom: -30px;
+    left: -20px;
+    background: #FFF;
+    border-radius: 18px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.driver-avatar {
+    width: 40px;
+    height: 40px;
+    background: #FFF0E6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.driver-name { font-size: 13px; font-weight: 800; }
+.driver-car { font-size: 11px; color: var(--text-muted); }
+.driver-eta {
+    background: #FFF0E6;
+    color: var(--orange-primary);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+/* Адаптив */
+@media (max-width: 992px) {
+    .hero-container { grid-template-columns: 1fr; }
+    .hero-title { font-size: 44px; }
 }

@@ -3,54 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sasaGo — Главная</title>
+    <title>SasaGo — Едем куда угодно вместе</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Шапка: Профиль слева, счетчик баллов справа -->
-        <header class="top-header">
-            <div class="user-profile">
-                <div class="user-info">
-                    <span class="user-name">СасаВротик</span>
-                    <span class="user-status">VIP Амбассадор</span>
+    <!-- Шапка -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <span class="logo-icon">s</span>
+                <span class="logo-text">SasaGo</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="taxi.html" class="active">Такси</a>
+                <a href="food.html">Доставка</a>
+                <a href="#">Самокаты</a>
+                <a href="#">Каршеринг</a>
+                <a href="invest.html">Инвестиции</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="btn-login" id="auth-btn">Войти</button>
+                <button class="btn-download">Скачать</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <main class="hero">
+        <div class="hero-container">
+            
+            <!-- Левый блок: Тексты -->
+            <div class="hero-text">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    ДОСТУПНО В 600+ ГОРОДАХ
+                </div>
+
+                <h1 class="hero-title">
+                    Едем<br>
+                    <span class="orange-text">куда угодно</span><br>
+                    вместе
+                </h1>
+
+                <p class="hero-subtitle">
+                    Такси, доставка, самокаты и инвестиции — всё в одном приложении. Машина приедет за 3 минуты.
+                </p>
+
+                <div class="store-buttons">
+                    <a href="#" class="store-btn app-store">
+                        <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.66-.8 1.11-1.92.99-3.04-.96.04-2.12.64-2.8 1.44-.6.7-1.13 1.83-.99 2.94 1.07.08 2.14-.54 2.8-1.34z"/></svg>
+                        <div class="store-text">
+                            <span class="small">Загрузить в</span>
+                            <span class="bold">App Store</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="store-btn google-play">
+                        <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L14.81,13.12L17.75,10.18L20.31,11.64C21.23,12.16 21.23,13.11 20.31,13.63L16.81,15.12M14.81,10.88L16.81,8.88L20.31,10.37C21.23,10.89 21.23,11.84 20.31,12.36L17.75,13.82L14.81,10.88Z"/></svg>
+                        <div class="store-text">
+                            <span class="small">Получить в</span>
+                            <span class="bold">Google Play</span>
+                        </div>
+                    </a>
                 </div>
             </div>
 
-            <div class="balance-clean">
-                <span id="balance-value" class="balance-number">500</span>
-                <span class="balance-label">баллов</span>
-            </div>
-        </header>
+            <!-- Правый блок: Виджет заказа -->
+            <div class="hero-widget-wrapper">
+                <div class="order-widget">
+                    
+                    <!-- Переключатель сервисов -->
+                    <div class="widget-tabs">
+                        <button class="tab-btn active" data-tab="taxi">🚖 Такси</button>
+                        <button class="tab-btn" data-tab="food">📦 Доставка</button>
+                        <button class="tab-btn" data-tab="scooter">🛴 Самокат</button>
+                    </div>
 
-        <!-- Основная область с центрированным содержимым -->
-        <main class="main-content">
-            <div class="hero-section">
-                <!-- Главный заголовок по центру -->
-                <h1 class="brand-title">sasaGo</h1>
+                    <!-- Карта с маршрутом -->
+                    <div class="widget-map">
+                        <div class="map-grid-bg"></div>
+                        <svg class="route-svg" viewBox="0 0 300 100">
+                            <path d="M 30 70 Q 120 10, 270 20" class="route-line" />
+                            <circle cx="30" cy="70" r="6" class="point-start" />
+                            <circle cx="150" cy="35" r="5" class="point-mid" />
+                            <circle cx="270" cy="20" r="7" class="point-end" />
+                        </svg>
+                        <div class="map-tag">~3 мин · 2.4 км</div>
+                    </div>
 
-                <!-- Прямоугольные карточки утилит -->
-                <div class="services-grid">
-                    <!-- Карточка 1: sasaИнвест -->
-                    <a href="invest.html" class="service-card">
-                        <span class="card-title">sasaИнвест</span>
-                    </a>
+                    <!-- Форма заказа -->
+                    <form class="widget-form" id="taxi-form">
+                        <div class="input-group">
+                            <span class="input-dot orange"></span>
+                            <input type="text" id="from-input" placeholder="Откуда едем?" value="Центральный парк">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-dot black"></span>
+                            <input type="text" id="to-input" placeholder="Куда едем?">
+                        </div>
 
-                    <!-- Карточка 2: sasaТакси -->
-                    <a href="taxi.html" class="service-card">
-                        <span class="card-title">sasaТакси</span>
-                    </a>
+                        <button type="submit" class="btn-submit">Заказать такси</button>
+                    </form>
 
-                    <!-- Карточка 3: sasaЕда -->
-                    <a href="food.html" class="service-card">
-                        <span class="card-title">sasaЕда</span>
-                    </a>
+                    <!-- Быстрые подсказки -->
+                    <div class="quick-tags">
+                        <button class="tag-chip">Дом</button>
+                        <button class="tag-chip">Работа</button>
+                        <button class="tag-chip">Аэропорт</button>
+                        <button class="tag-chip">ТЦ Мега</button>
+                    </div>
                 </div>
+
+                <!-- Карточка водителя -->
+                <div class="driver-card">
+                    <div class="driver-avatar">👨‍✈️</div>
+                    <div class="driver-info">
+                        <div class="driver-name">Алексей К.</div>
+                        <div class="driver-car">★ 4.93 · Toyota Camry</div>
+                    </div>
+                    <div class="driver-eta">3 мин</div>
+                </div>
+
             </div>
-        </main>
-    </div>
+
+        </div>
+    </main>
 
     <script src="js/app-state.js"></script>
+    <script>
+        // Небольшой интерактив для виджета
+        document.getElementById('taxi-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const from = document.getElementById('from-input').value;
+            const to = document.getElementById('to-input').value;
+            
+            if(!to) return alert('Введите куда ехать!');
+
+            const res = await AppState.orderTaxi(450, false);
+            if(res && res.status === 'success') {
+                alert(`Такси выехало! Баланс бонусов: ${res.new_balance}`);
+            }
+        });
+    </script>
 </body>
 </html>
