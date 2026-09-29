@@ -1,0 +1,38 @@
+.rates-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #FFFFFF;
+}
+
+.rates-table th, .rates-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.rates-table th {
+    color: #757575;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.trend-up {
+    color: #388E3C;
+    font-weight: 700;
+}
+
+.trend-down {
+    color: #D32F2F;
+    font-weight: 700;
+}
+
+.sparkline {
+    font-family: monospace;
+    letter-spacing: 2px;
+    color: #FF5722;
+    background: #FBE9E7;
+    padding: 4px 8px;
+    border-radius: 6px;
+}

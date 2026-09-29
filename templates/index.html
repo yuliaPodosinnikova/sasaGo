@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sasaGo — Главная</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Шапка: Профиль слева, счетчик баллов справа -->
+        <header class="top-header">
+            <div class="user-profile">
+                <div class="user-info">
+                    <span class="user-name">СасаВротик</span>
+                    <span class="user-status">VIP Амбассадор</span>
+                </div>
+            </div>
+
+            <div class="balance-clean">
+                <span id="balance-value" class="balance-number">500</span>
+                <span class="balance-label">баллов</span>
+            </div>
+        </header>
+
+        <!-- Основная область с центрированным содержимым -->
+        <main class="main-content">
+            <div class="hero-section">
+                <!-- Главный заголовок по центру -->
+                <h1 class="brand-title">sasaGo</h1>
+
+                <!-- Прямоугольные карточки утилит -->
+                <div class="services-grid">
+                    <!-- Карточка 1: sasaИнвест -->
+                    <a href="invest.html" class="service-card">
+                        <span class="card-title">sasaИнвест</span>
+                    </a>
+
+                    <!-- Карточка 2: sasaТакси -->
+                    <a href="taxi.html" class="service-card">
+                        <span class="card-title">sasaТакси</span>
+                    </a>
+
+                    <!-- Карточка 3: sasaЕда -->
+                    <a href="food.html" class="service-card">
+                        <span class="card-title">sasaЕда</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app-state.js"></script>
+</body>
+</html>
