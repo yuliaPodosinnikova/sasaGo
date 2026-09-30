@@ -2,36 +2,244 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>sasaТакси — Заказ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SasaGo — Такси за 3 минуты</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/forms.css">
 </head>
-<body>
+<body class="bg-grid-pattern">
 
-<div class="app-container">
-    <header>
-        <a href="index.html" class="logo">🍊 sasaGo</a>
-        <div class="balance-card">Sasa Плюс: 500 Б</div>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/sasavot.jpg" alt="SasaGo" class="logo-img">
+                <span class="logo-text">SasaGo</span>
+            </a>
+    
+            <nav class="nav-links">
+                <a href="taxi.html" class="nav-tab active">Такси</a>
+                <a href="scooters.html" class="nav-tab">Самокаты</a>
+                <a href="invest.html" class="nav-tab">Инвестиции</a>
+            </nav>
+    
+            <div class="nav-actions">
+                <button class="btn-login">Войти</button>
+                <button class="btn-download">Скачать</button>
+            </div>
+        </div>
     </header>
 
-    <main class="content">
-        <a href="index.html" class="btn btn-back">← На главную</a>
-        <h2>🚖 sasaТакси — Заказ поездки</h2>
+    <div class="taxi-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-left">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    1 248 ВОДИТЕЛЕЙ ОНЛАЙН
+                </div>
 
-        <div class="form-box">
-            <div class="input-group">
-                <label>Откуда:</label>
-                <input type="text" value="ул. Пушкина, 10">
+                <h1 class="taxi-title">
+                    Такси<br>
+                    <span class="orange-text">за 3 минуты</span>
+                </h1>
+
+                <p class="taxi-desc">
+                    Надёжные водители, прозрачные цены, отслеживание на карте. Никаких сюрпризов.
+                </p>
+
+                <div class="features-row">
+                    <div class="feature-card">
+                        <div class="feature-icon-box">S</div>
+                        <span>Проверенные водители</span>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-box">M</div>
+                        <span>Трекинг на карте</span>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-box">P</div>
+                        <span>Оплата картой</span>
+                    </div>
+                </div>
             </div>
-            <div class="input-group">
-                <label>Куда:</label>
-                <input type="text" value="ул. Ленина, 25">
+
+            <!-- Order Form Widget -->
+            <div class="hero-right">
+                <div class="order-widget">
+                    <div class="widget-map">
+                        <div class="map-grid-bg"></div>
+                        <svg class="route-svg" viewBox="0 0 300 100">
+                            <path d="M 30 70 Q 120 10, 270 20" class="route-line" />
+                            <circle cx="30" cy="70" r="6" class="point-start" />
+                            <circle cx="150" cy="35" r="5" class="point-mid" />
+                            <circle cx="270" cy="20" r="7" class="point-end" />
+                        </svg>
+                        <div class="map-badge-location">Москва · Центр</div>
+                        <div class="map-tag">~8 мин · 2.4 км</div>
+                    </div>
+
+                    <form id="taxi-form">
+                        <div class="input-group input-group-margin-sm">
+                            <span class="input-dot orange"></span>
+                            <input type="text" id="from-val" placeholder="Откуда едем?" value="Центральный парк" required>
+                        </div>
+                        <div class="input-group input-group-margin-md">
+                            <span class="input-dot black"></span>
+                            <input type="text" id="to-val" placeholder="Куда едем?" required>
+                        </div>
+
+                        <div class="tariffs-grid">
+                            <div class="tariff-box active" onclick="selectTariff(this, 199)">
+                                <div class="tariff-box-info">
+                                    <span class="tariff-box-title">Эконом</span>
+                                    <span class="tariff-box-price">от 199 ₽</span>
+                                </div>
+                            </div>
+                            <div class="tariff-box" onclick="selectTariff(this, 349)">
+                                <div class="tariff-box-info">
+                                    <span class="tariff-box-title">Комфорт</span>
+                                    <span class="tariff-box-price">от 349 ₽</span>
+                                </div>
+                            </div>
+                            <div class="tariff-box" onclick="selectTariff(this, 699)">
+                                <div class="tariff-box-info">
+                                    <span class="tariff-box-title">Бизнес</span>
+                                    <span class="tariff-box-price">от 699 ₽</span>
+                                </div>
+                            </div>
+                            <div class="tariff-box" onclick="selectTariff(this, 499)">
+                                <div class="tariff-box-info">
+                                    <span class="tariff-box-title">Минивэн</span>
+                                    <span class="tariff-box-price">от 499 ₽</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="plan-toggle">
+                            <span>Запланировать поездку</span>
+                            <label class="switch">
+                                <input type="checkbox" id="plan-check" onchange="toggleDateInput()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <input type="datetime-local" id="date-picker" class="date-input date-input-hidden">
+
+                        <button type="submit" class="btn-submit" id="order-btn">
+                            Заказать · от 199 ₽
+                        </button>
+                    </form>
+
+                    <div class="quick-tags">
+                        <button type="button" class="tag-chip" onclick="setDest('Домой')">Домой</button>
+                        <button type="button" class="tag-chip" onclick="setDest('На работу')">На работу</button>
+                        <button type="button" class="tag-chip" onclick="setDest('Аэропорт Шереметьево')">Аэропорт Шереметьево</button>
+                        <button type="button" class="tag-chip" onclick="setDest('Казанский вокзал')">Казанский вокзал</button>
+                    </div>
+                </div>
             </div>
-            <p style="font-weight: bold;">Расчетная стоимость: 450 ₽</p>
-            <button class="btn" onclick="alert('Такси выехало!')">Заказать такси</button>
         </div>
-    </main>
-</div>
 
+        <!-- Driver Section -->
+        <div class="drivers-wrapper">
+            <div>
+                <div class="drivers-badge-text">НАШИ ВОДИТЕЛИ</div>
+                <h2 class="drivers-main-title">
+                    Водители рядом<br>
+                    <span class="drivers-title-muted">прямо сейчас</span>
+                </h2>
+            </div>
+
+            <div class="drivers-grid-container">
+                <div class="driver-card-item">
+                    <div class="driver-info-wrapper">
+                        <img src="assets/rostik.jpg" alt="Ростик" class="driver-avatar-img">
+                        <div>
+                            
+                            <div class="driver-name-text">Ростик</div>
+                            <div class="driver-car-text">Toyota Camry · белая</div>
+                            <div class="driver-rating-row">
+                                <span class="star-symbol">★</span>
+                                <span>4.93</span>
+                                <span class="trips-count">2 841 поездок</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="eta-time-val">2 мин</div>
+                        <div class="eta-time-label">ожидание</div>
+                    </div>
+                </div>
+
+                <div class="driver-card-item">
+                    <div class="driver-info-wrapper">
+                        <img src="assets/helin.jpg" alt="Хелин" class="driver-avatar-img">
+                        <div>
+                            <div class="driver-name-text">Хелин</div>
+                            <div class="driver-car-text">Kia Optima · чёрная</div>
+                            <div class="driver-rating-row">
+                                <span class="star-symbol">★</span>
+                                <span>4.87</span>
+                                <span class="trips-count">1 560 поездок</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="eta-time-val">4 мин</div>
+                        <div class="eta-time-label">ожидание</div>
+                    </div>
+                </div>
+
+                <div class="driver-card-item">
+                    <div class="driver-info-wrapper">
+                        <img src="assets/narek.jpg" alt="Нарек" class="driver-avatar-img">
+                        <div>
+                            <div class="driver-name-text">Нарек</div>
+                            <div class="driver-car-text">Hyundai Sonata · серая</div>
+                            <div class="driver-rating-row">
+                                <span class="star-symbol">★</span>
+                                <span>4.98</span>
+                                <span class="trips-count">3 102 поездок</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="eta-time-val">6 мин</div>
+                        <div class="eta-time-label">ожидание</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPrice = 199;
+
+        function selectTariff(element, price) {
+            document.querySelectorAll('.tariff-box').forEach(box => box.classList.remove('active'));
+            element.classList.add('active');
+            currentPrice = price;
+            document.getElementById('order-btn').textContent = `Заказать · от ${price} ₽`;
+        }
+
+        function setDest(destination) {
+            document.getElementById('to-val').value = destination;
+        }
+
+        function toggleDateInput() {
+            const isChecked = document.getElementById('plan-check').checked;
+            const datePicker = document.getElementById('date-picker');
+            if (isChecked) {
+                datePicker.classList.remove('date-input-hidden');
+            } else {
+                datePicker.classList.add('date-input-hidden');
+            }
+        }
+
+        document.getElementById('taxi-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const destination = document.getElementById('to-val').value;
+            alert(`Заказ оформлен! Едем в "${destination}". Сумма: ${currentPrice} ₽`);
+        });
+    </script>
 </body>
 </html>

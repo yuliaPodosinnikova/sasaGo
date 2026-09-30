@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SasaGo — Самокаты</title>
+    <!-- Подключение единого файла CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Специфичные стили только для страницы Самокатов */
+        
+        /* Грид характеристик 2x2 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            max-width: 440px;
+        }
+
+        .feature-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .feature-icon-box {
+            font-size: 20px;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .feature-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-label {
+            font-size: 11px;
+            color: var(--text-subtle);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .feature-val {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        /* Виджет самоката */
+        .widget-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .widget-preview-box {
+            width: 100%;
+            height: 160px;
+            background: var(--bg-orange-light);
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .map-badge-id {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            color: var(--text-dark);
+        }
+
+        .map-badge-charge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #10B981;
+            color: #FFFFFF;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .scooter-illustration {
+            height: 85px;
+        }
+
+        /* Ползунок времени */
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .range-slider {
+            width: 100%;
+            accent-color: var(--orange-primary);
+            cursor: pointer;
+            height: 6px;
+            background: #EAEAEA;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .range-limits {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-subtle);
+            margin-top: 6px;
+            margin-bottom: 24px;
+        }
+
+        /* Детализация стоимости */
+        .price-breakdown {
+            background: var(--bg-orange-light);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .price-row.total {
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 800;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 10px;
+        }
+
+        .widget-subtext {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-subtle);
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        /* Секция зон покрытия */
+        .zones-wrapper {
+            margin-top: 40px;
+        }
+
+        .zones-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--orange-primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .zones-title {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 32px;
+            line-height: 1.1;
+        }
+
+        .zones-title span {
+            color: var(--text-subtle);
+        }
+
+        .zones-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .zone-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+        }
+
+        .zone-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-orange-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .zone-name {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .zone-count {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--orange-primary);
+        }
+
+        @media (max-width: 992px) {
+            .zones-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ЕДИНООБРАЗНАЯ ШАПКА -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/sasavot.jpg" alt="SasaGo" class="logo-img">
+                <span class="logo-text">SasaGo</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="taxi.html" class="nav-tab">Такси</a>
+                <a href="scooters.html" class="nav-tab active">Самокаты</a>
+                <a href="invest.html" class="nav-tab">Инвестиции</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="btn-login">Войти</button>
+                <button class="btn-download">Скачать</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="taxi-container">
+        
+        <!-- ВЕРХНИЙ БЛОК -->
+        <div class="hero-section">
+            <div class="hero-left">
+                <div class="badge">
+                    🛴 351 САМОКАТ РЯДОМ
+                </div>
+
+                <h1 class="taxi-title">
+                    Без пробок.<br>
+                    <span class="orange-text">Без парковки.</span><br>
+                    Без забот.
+                </h1>
+
+                <p class="taxi-desc">
+                    Найдите ближайший самокат, отсканируйте QR — и поехали. Всего 5 ₽/мин после разблокировки.
+                </p>
+
+                <!-- ХАРАКТЕРИСТИКИ (2x2) -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-box">⚡</div>
+                        <div class="feature-info">
+                            <span class="feature-label">Разблокировка</span>
+                            <span class="feature-val">50 ₽</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-box">🛴</div>
+                        <div class="feature-info">
+                            <span class="feature-label">Поездка</span>
+                            <span class="feature-val">5 ₽/мин</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-box">🔒</div>
+                        <div class="feature-info">
+                            <span class="feature-label">Парковка</span>
+                            <span class="feature-val">бесплатно</span>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-box">🔋</div>
+                        <div class="feature-info">
+                            <span class="feature-label">Заряд</span>
+                            <span class="feature-val">100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРАВАЯ ЧАСТЬ - ВИДЖЕТ -->
+            <div class="hero-right">
+                <div class="order-widget">
+                    <div class="widget-title">Рассчитать поездку</div>
+
+                    <div class="widget-preview-box">
+                        <div class="map-badge-id">SasaGo #4821</div>
+                        <div class="map-badge-charge">🔋 97%</div>
+                        
+                        <svg class="scooter-illustration" viewBox="0 0 100 80" fill="none">
+                            <circle cx="20" cy="65" r="10" stroke="#FF6B00" stroke-width="5"/>
+                            <circle cx="80" cy="65" r="10" stroke="#FF6B00" stroke-width="5"/>
+                            <path d="M 20 65 L 70 65 L 80 25 L 65 20" stroke="#FF6B00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M 75 22 L 60 22" stroke="#18181B" stroke-width="5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <div class="slider-header">
+                        <span>Длительность поездки</span>
+                        <span class="orange-text" id="duration-val">30 мин</span>
+                    </div>
+
+                    <input type="range" min="5" max="120" value="30" step="5" class="range-slider" id="time-slider" oninput="recalculate()">
+
+                    <div class="range-limits">
+                        <span>5 мин</span>
+                        <span>2 часа</span>
+                    </div>
+
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Разблокировка</span>
+                            <span>50 ₽</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Поездка</span>
+                            <span id="ride-price-val">30 мин × 5 ₽</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Итого</span>
+                            <span id="total-price-val" class="orange-text">200 ₽</span>
+                        </div>
+                    </div>
+
+                    <!-- Используем стандартизированную синюю/оранжевую кнопку из main.css -->
+                    <button type="button" class="btn-submit" onclick="alert('Отсканируйте QR-код в приложении!')">
+                        Найти самокат рядом
+                    </button>
+
+                    <div class="widget-subtext">
+                        Откройте приложение и отсканируйте QR-код
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЕКЦИЯ ЗОН ПОКРЫТИЯ -->
+        <div class="zones-wrapper">
+            <div class="zones-badge">ЗОНЫ ПОКРЫТИЯ</div>
+            <h2 class="zones-title">
+                Самокаты<br>
+                <span>по всему городу</span>
+            </h2>
+
+            <div class="zones-grid">
+                <div class="zone-card">
+                    <div class="zone-icon">🛴</div>
+                    <div class="zone-name">Центр</div>
+                    <div class="zone-count">142</div>
+                </div>
+
+                <div class="zone-card">
+                    <div class="zone-icon">🛴</div>
+                    <div class="zone-name">Сокольники</div>
+                    <div class="zone-count">67</div>
+                </div>
+
+                <div class="zone-card">
+                    <div class="zone-icon">🛴</div>
+                    <div class="zone-name">Хамовники</div>
+                    <div class="zone-count">89</div>
+                </div>
+
+                <div class="zone-card">
+                    <div class="zone-icon">🛴</div>
+                    <div class="zone-name">Арбат</div>
+                    <div class="zone-count">53</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Интерактивный калькулятор -->
+    <script>
+        function recalculate() {
+            const minutes = parseInt(document.getElementById('time-slider').value);
+            const pricePerMin = 5;
+            const unlockFee = 50;
+            
+            const ridePrice = minutes * pricePerMin;
+            const totalPrice = unlockFee + ridePrice;
+
+            document.getElementById('duration-val').textContent = minutes + ' мин';
+            document.getElementById('ride-price-val').textContent = `${minutes} мин × 5 ₽`;
+            document.getElementById('total-price-val').textContent = totalPrice + ' ₽';
+        }
+    </script>
+</body>
+</html>

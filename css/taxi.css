@@ -1,0 +1,350 @@
+body {
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.taxi-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 100px;
+    box-sizing: border-box;
+}
+
+/* Верхняя секция */
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    margin-bottom: 60px;
+}
+
+.hero-left {
+    flex: 1;
+    max-width: 550px;
+}
+
+.hero-right {
+    width: 480px;
+    flex-shrink: 0;
+}
+
+.taxi-title {
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 20px 0;
+    letter-spacing: -1px;
+}
+
+.taxi-desc {
+    font-size: 18px;
+    color: var(--text-muted, #71717A);
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+.features-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.feature-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dark, #18181B);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-icon-box {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: var(--orange-primary, #FF6B00);
+}
+
+/* Форма */
+.map-badge-location {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #FFF;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.input-group-margin-sm {
+    margin-bottom: 8px;
+}
+
+.input-group-margin-md {
+    margin-bottom: 16px;
+}
+
+.tariffs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tariff-box {
+    background: #F7F7F8;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+}
+
+.tariff-box.active {
+    background: #FFF5EE;
+    border-color: var(--orange-primary, #FF6B00);
+}
+
+.tariff-box-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.tariff-box-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-dark, #18181B);
+}
+
+.tariff-box-price {
+    font-size: 11px;
+    color: var(--text-muted, #71717A);
+    font-weight: 600;
+}
+
+.plan-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #E4E4E7;
+    transition: .3s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider { 
+    background-color: var(--orange-primary, #FF6B00); 
+}
+
+input:checked + .slider:before { 
+    transform: translateX(20px); 
+}
+
+.date-input {
+    width: 100%;
+    height: 44px;
+    background: #F7F7F8;
+    border: 1px solid #EAEAEA;
+    border-radius: 12px;
+    padding: 0 14px;
+    font-size: 13px;
+    color: var(--text-dark, #18181B);
+    outline: none;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+.date-input-hidden {
+    display: none;
+}
+
+.btn-submit-full {
+    width: 100%;
+}
+
+.quick-tags-margin {
+    margin-top: 16px;
+}
+
+/* СЕКЦИЯ ВОДИТЕЛЕЙ */
+.drivers-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 0 24px;
+    box-sizing: border-box;
+    text-align: left;
+    clear: both;
+}
+
+.drivers-header-box {
+    margin-bottom: 32px;
+}
+
+.drivers-badge-text {
+    font-size: 13px;
+    font-weight: 800;
+    color: #FF6B00;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.drivers-main-title {
+    font-size: 42px;
+    font-weight: 900;
+    color: #18181B;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.drivers-title-muted {
+    color: #D4D4D8;
+}
+
+.drivers-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.driver-card-item {
+    background: #F8F8F8;
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #F0F0F0;
+    box-sizing: border-box;
+}
+
+.driver-info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.driver-avatar-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: #FDE8D3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.driver-name-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: #18181B;
+}
+
+.driver-car-text {
+    font-size: 13px;
+    color: #A1A1AA;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.driver-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #18181B;
+    margin-top: 4px;
+}
+
+.star-symbol {
+    color: #F59E0B;
+}
+
+.trips-count {
+    color: #D4D4D8;
+    font-weight: 500;
+    margin-left: 4px;
+}
+
+.driver-eta-box {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.eta-time-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: #FF6B00;
+}
+
+.eta-time-label {
+    font-size: 11px;
+    color: #D4D4D8;
+    font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .hero-section { 
+        flex-direction: column; 
+    }
+    .hero-right { 
+        width: 100%; 
+    }
+    .drivers-grid-container { 
+        grid-template-columns: 1fr; 
+    }
+}

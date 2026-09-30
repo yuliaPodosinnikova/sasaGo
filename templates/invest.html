@@ -2,54 +2,535 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>sasaИнвест — Котировки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SasaGo — Инвестиции</title>
+    <!-- Подключение единого CSS файла -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/invest.css">
+    <style>
+        /* Специфичные стили только для страницы Инвестиций */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 500px;
+        }
+
+        .tag-pill {
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 10px 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .widget-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .slider-block {
+            margin-bottom: 24px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .slider-val {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--orange-primary);
+        }
+
+        .range-slider {
+            width: 100%;
+            accent-color: var(--orange-primary);
+            cursor: pointer;
+            height: 6px;
+            background: #EAEAEA;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .range-limits {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-subtle);
+            margin-top: 6px;
+        }
+
+        .summary-box {
+            background: var(--bg-orange-light);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .summary-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .metric-col {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-subtle);
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--text-dark);
+        }
+
+        .metric-value.income {
+            color: var(--orange-primary);
+        }
+
+        .summary-rate {
+            font-size: 11px;
+            color: var(--orange-primary);
+            font-weight: 700;
+            border-top: 1px dashed #E5D5C5;
+            padding-top: 10px;
+        }
+
+        .plans-wrapper {
+            margin-bottom: 90px;
+        }
+
+        .section-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--orange-primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 36px;
+            line-height: 1.1;
+        }
+
+        .section-title-sub {
+            color: var(--text-subtle);
+            display: block;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .plan-card {
+            background: #FFFFFF;
+            border-radius: 28px;
+            padding: 36px 30px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .plan-card.featured {
+            background: var(--orange-primary);
+            color: #FFFFFF;
+            box-shadow: 0 12px 32px rgba(255, 107, 0, 0.3);
+        }
+
+        .plan-badge-pop {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-dark);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 12px;
+        }
+
+        .plan-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .plan-icon-bg {
+            width: 48px;
+            height: 48px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .plan-name {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .plan-sub {
+            font-size: 13px;
+            color: var(--text-subtle);
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .plan-card.featured .plan-sub {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .plan-rate-val {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--orange-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .plan-card.featured .plan-rate-val {
+            color: #FFFFFF;
+        }
+
+        .plan-rate-unit {
+            font-size: 12px;
+            color: var(--text-subtle);
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .plan-card.featured .plan-rate-unit {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-plan {
+            width: 100%;
+            height: 48px;
+            background: var(--orange-primary);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .plan-card.featured .btn-plan {
+            background: #FFFFFF;
+            color: var(--orange-primary);
+        }
+
+        .news-wrapper {
+            margin-top: 40px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .news-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+        }
+
+        .news-header-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .news-pill {
+            display: inline-block;
+            background: var(--bg-orange-light);
+            color: var(--orange-primary);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        .news-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .news-date {
+            font-size: 12px;
+            color: var(--text-subtle);
+            font-weight: 600;
+        }
+
+        @media (max-width: 992px) {
+            .plans-grid, .news-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="app-container">
-    <header>
-        <a href="index.html" class="logo">🍊 sasaGo</a>
-        <div class="balance-card">Sasa Плюс: 500 Б</div>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/sasavot.jpg" alt="SasaGo" class="logo-img">
+                <span class="logo-text">SasaGo</span>
+            </a>
+    
+            <nav class="nav-links">
+                <!-- Переставляйте класс 'active' на ту страницу, где сейчас находитесь -->
+                <a href="taxi.html" class="nav-tab">Такси</a>
+                <a href="scooters.html" class="nav-tab">Самокаты</a>
+                <a href="invest.html" class="nav-tab active">Инвестиции</a>
+            </nav>
+    
+            <div class="nav-actions">
+                <button class="btn-login">Войти</button>
+                <button class="btn-download">Скачать</button>
+            </div>
+        </div>
     </header>
 
-    <main class="content">
-        <a href="index.html" class="btn btn-back">← На главную</a>
-        <h2>📊 sasaИнвест — Курсы валют ЦБ РФ (7 дней)</h2>
+    <div class="taxi-container">
+        
+        <div class="hero-section">
+            <div class="hero-left">
+                <div class="badge">
+                    📊 ДОХОДНОСТЬ ДО 22% ГОДОВЫХ
+                </div>
 
-        <table class="rates-table">
-            <thead>
-                <tr>
-                    <th>Валюта</th>
-                    <th>Курс ЦБ</th>
-                    <th>График</th>
-                    <th>Динамика</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b>USD / RUB</b></td>
-                    <td>92.00 ₽</td>
-                    <td><span class="sparkline">▄ ▅ █ ▇ █</span></td>
-                    <td class="trend-up">▲ +2.5 ₽</td>
-                </tr>
-                <tr>
-                    <td><b>EUR / RUB</b></td>
-                    <td>99.10 ₽</td>
-                    <td><span class="sparkline">▄ ▃ ▅ ▇ █</span></td>
-                    <td class="trend-up">▲ +2.1 ₽</td>
-                </tr>
-                <tr>
-                    <td><b>CNY / RUB</b></td>
-                    <td>12.80 ₽</td>
-                    <td><span class="sparkline">▄ ▅ ▃ ▇ █</span></td>
-                    <td class="trend-up">▲ +0.5 ₽</td>
-                </tr>
-            </tbody>
-        </table>
-    </main>
-</div>
+                <h1 class="taxi-title">
+                    Вложи в<br>
+                    <span class="orange-text">будущее</span><br>
+                    мобильности
+                </h1>
 
+                <p class="taxi-desc">
+                    Инвестируйте в инфраструктуру городской мобильности SasaGo и получайте стабильный доход от 14% до 22% годовых.
+                </p>
+
+                <div class="tags-container">
+                    <div class="tag-pill">🔒 Защита вклада</div>
+                    <div class="tag-pill">📊 Прозрачная отчётность</div>
+                    <div class="tag-pill">💸 Ежемесячные выплаты</div>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="order-widget">
+                    <div class="widget-title">Калькулятор дохода</div>
+
+                    <div class="slider-block">
+                        <div class="slider-header">
+                            <span>Сумма инвестиции</span>
+                            <span class="slider-val" id="amount-val">50 000 ₽</span>
+                        </div>
+                        <input type="range" min="1000" max="1000000" value="50000" step="1000" class="range-slider" id="amount-slider" oninput="calculateInvest()">
+                        <div class="range-limits">
+                            <span>1 000 ₽</span>
+                            <span>1 000 000 ₽</span>
+                        </div>
+                    </div>
+
+                    <div class="slider-block">
+                        <div class="slider-header">
+                            <span>Срок</span>
+                            <span class="slider-val" id="term-val">12 мес.</span>
+                        </div>
+                        <input type="range" min="3" max="24" value="12" step="1" class="range-slider" id="term-slider" oninput="calculateInvest()">
+                        <div class="range-limits">
+                            <span>3 мес</span>
+                            <span>24 мес</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-box">
+                        <div class="summary-metrics">
+                            <div class="metric-col">
+                                <span class="metric-label">Вложено</span>
+                                <span class="metric-value" id="res-invest">50 000 ₽</span>
+                            </div>
+                            <div class="metric-col">
+                                <span class="metric-label">Доход</span>
+                                <span class="metric-value income" id="res-profit">+9 000 ₽</span>
+                            </div>
+                            <div class="metric-col">
+                                <span class="metric-label">Итого</span>
+                                <span class="metric-value" id="res-total">59 000 ₽</span>
+                            </div>
+                        </div>
+
+                        <div class="summary-rate" id="res-tariff">
+                            Ставка 18% годовых · тариф «Рост»
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-submit" onclick="alert('Спасибо за ваш интерес! Заявка отправлена.')">
+                        Начать инвестировать
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="plans-wrapper">
+            <div class="section-badge">ТАРИФЫ</div>
+            <h2 class="section-title">
+                Выберите план<br>
+                <span class="section-title-sub">под ваши цели</span>
+            </h2>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div>
+                        <div class="plan-icon">🌱</div>
+                        <div class="plan-name">Старт</div>
+                        <div class="plan-sub">от 1 000 ₽ · 3 мес</div>
+                        <div class="plan-rate-val">14%</div>
+                        <div class="plan-rate-unit">годовых</div>
+                    </div>
+                    <button class="btn-plan">Выбрать план</button>
+                </div>
+
+                <div class="plan-card featured">
+                    <div class="plan-badge-pop">Популярный</div>
+                    <div>
+                        <div class="plan-icon-bg">📈</div>
+                        <div class="plan-name">Рост</div>
+                        <div class="plan-sub">от 10 000 ₽ · 12 мес</div>
+                        <div class="plan-rate-val">18%</div>
+                        <div class="plan-rate-unit">годовых</div>
+                    </div>
+                    <button class="btn-plan">Выбрать план</button>
+                </div>
+
+                <div class="plan-card">
+                    <div>
+                        <div class="plan-icon">💎</div>
+                        <div class="plan-name">Премиум</div>
+                        <div class="plan-sub">от 100 000 ₽ · 24 мес</div>
+                        <div class="plan-rate-val">22%</div>
+                        <div class="plan-rate-unit">годовых</div>
+                    </div>
+                    <button class="btn-plan">Выбрать план</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-wrapper">
+            <div class="section-badge">НОВОСТИ</div>
+            <h2 class="section-title">Для инвесторов</h2>
+
+            <div class="news-grid">
+                <div class="news-card">
+                    <div>
+                        <div class="news-header-icon">🌍</div>
+                        <div class="news-pill">Финансы</div>
+                        <div class="news-title">SasaGo выходит на 3 новых рынка в 2024</div>
+                    </div>
+                    <div class="news-date">15 сен 2024</div>
+                </div>
+
+                <div class="news-card">
+                    <div>
+                        <div class="news-header-icon">🚗</div>
+                        <div class="news-pill">Продукт</div>
+                        <div class="news-title">Запуск каршеринга в 12 городах</div>
+                    </div>
+                    <div class="news-date">3 сен 2024</div>
+                </div>
+
+                <div class="news-card">
+                    <div>
+                        <div class="news-header-icon">💰</div>
+                        <div class="news-pill">Инвесторам</div>
+                        <div class="news-title">Выплата дивидендов Q3 2024</div>
+                    </div>
+                    <div class="news-date">1 сен 2024</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+
+        function calculateInvest() {
+            const amount = parseInt(document.getElementById('amount-slider').value);
+            const months = parseInt(document.getElementById('term-slider').value);
+
+            let rate = 0.14;
+            let planName = "Старт";
+
+            if (amount >= 100000 || months >= 24) {
+                rate = 0.22;
+                planName = "Премиум";
+            } else if (amount >= 10000 || months >= 12) {
+                rate = 0.18;
+                planName = "Рост";
+            }
+
+            const profit = Math.round(amount * rate * (months / 12));
+            const total = amount + profit;
+
+            document.getElementById('amount-val').textContent = formatNumber(amount) + ' ₽';
+            document.getElementById('term-val').textContent = months + ' мес.';
+
+            document.getElementById('res-invest').textContent = formatNumber(amount) + ' ₽';
+            document.getElementById('res-profit').textContent = '+' + formatNumber(profit) + ' ₽';
+            document.getElementById('res-total').textContent = formatNumber(total) + ' ₽';
+
+            document.getElementById('res-tariff').textContent = `Ставка ${Math.round(rate * 100)}% годовых · тариф «${planName}»`;
+        }
+
+        calculateInvest();
+    </script>
 </body>
 </html>

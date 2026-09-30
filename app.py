@@ -82,7 +82,7 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
             '/': 'templates/index.html',
             '/index.html': 'templates/index.html',
             '/taxi.html': 'templates/taxi.html',
-            '/food.html': 'templates/food.html',
+            '/scooters.html': 'templates/scooters.html',
             '/invest.html': 'templates/invest.html'
         }
 
@@ -198,7 +198,7 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
             })
             return
 
-        elif self.path == '/api/food/order':
+        elif self.path == '/api/scooters/order':
             total_price = data.get('total_price', 0)
             cashback = int(total_price * 0.10)
             user_data['balance'] += cashback
