@@ -36,6 +36,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
 
         .sasavot-img {
@@ -91,7 +92,7 @@
             SasaGo — <span class="orange-text">лучший сервис</span> в мире
         </h1>
 
-        <div class="sasavot-frame">
+        <div class="sasavot-frame" id="sasavot-card">
             <img src="assets/sasvot.jpg" alt="Сасавот" class="sasavot-img" onerror="this.style.display='none'; document.getElementById('placeholder').style.display='flex';">
             
             <div id="placeholder" class="sasavot-placeholder" style="display: none;">
@@ -102,5 +103,30 @@
     </main>
 
     <script src="js/app-state.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const authBtn = document.getElementById('auth-btn');
+            const downloadBtn = document.querySelector('.btn-download');
+            const sasavotCard = document.getElementById('sasavot-card');
+
+            if (authBtn) {
+                authBtn.addEventListener('click', () => {
+                    alert('Вход в аккаунт SasaGo временно недоступен. Попробуйте позже.');
+                });
+            }
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    alert('Ссылка на скачивание приложения SasaGo отправлена!');
+                });
+            }
+
+            if (sasavotCard) {
+                sasavotCard.addEventListener('click', () => {
+                    alert('Добро пожаловать в экосистему SasaGo!');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

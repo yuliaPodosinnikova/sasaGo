@@ -30,7 +30,6 @@
     </header>
 
     <div class="taxi-container">
-        <!-- Hero Section -->
         <div class="hero-section">
             <div class="hero-left">
                 <div class="badge">
@@ -63,7 +62,6 @@
                 </div>
             </div>
 
-            <!-- Order Form Widget -->
             <div class="hero-right">
                 <div class="order-widget">
                     <div class="widget-map">
@@ -140,7 +138,6 @@
             </div>
         </div>
 
-        <!-- Driver Section -->
         <div class="drivers-wrapper">
             <div>
                 <div class="drivers-badge-text">НАШИ ВОДИТЕЛИ</div>
@@ -155,7 +152,6 @@
                     <div class="driver-info-wrapper">
                         <img src="assets/rostik.jpg" alt="Ростик" class="driver-avatar-img">
                         <div>
-                            
                             <div class="driver-name-text">Ростик</div>
                             <div class="driver-car-text">Toyota Camry · белая</div>
                             <div class="driver-rating-row">
@@ -240,6 +236,33 @@
             e.preventDefault();
             const destination = document.getElementById('to-val').value;
             alert(`Заказ оформлен! Едем в "${destination}". Сумма: ${currentPrice} ₽`);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const downloadBtn = document.querySelector('.btn-download');
+            const loginBtn = document.querySelector('.btn-login');
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    alert('Ссылка на скачивание приложения SasaGo отправлена!');
+                });
+            }
+
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => {
+                    alert('Вход в аккаунт SasaGo временно недоступен. Попробуйте позже.');
+                });
+            }
+
+            document.querySelectorAll('.driver-card-item').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const name = card.querySelector('.driver-name-text').textContent;
+                    const car = card.querySelector('.driver-car-text').textContent;
+                    const eta = card.querySelector('.eta-time-val').textContent;
+                    alert(`Водитель: ${name}\nМашина: ${car}\nВремя прибытия: ${eta}`);
+                });
+            });
         });
     </script>
 </body>

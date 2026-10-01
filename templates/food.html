@@ -6,7 +6,6 @@
     <title>SasaGo — Еда</title>
     <link rel="stylesheet" href="../css/main.css">
     <style>
-        /* HERO СЕКЦИЯ */
         .food-hero {
             display: flex;
             align-items: center;
@@ -65,7 +64,6 @@
             max-width: 440px;
         }
 
-        /* Поле ввода адреса */
         .address-search-box {
             background: #FFFFFF;
             border-radius: 24px;
@@ -134,7 +132,6 @@
             font-weight: 700;
         }
 
-        /* Карточка с фото без черной рамки */
         .order-status-card {
             width: 460px;
             height: 400px;
@@ -151,7 +148,6 @@
             display: block;
         }
 
-        /* СЕКЦИЯ КАТАЛОГА */
         .catalog-section {
             margin: 60px 0;
         }
@@ -209,7 +205,6 @@
             color: #FFFFFF;
         }
 
-        /* Сетка карточек */
         .restaurants-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -220,6 +215,7 @@
         .restaurant-card {
             display: flex;
             flex-direction: column;
+            cursor: pointer;
             transition: transform 0.2s ease;
         }
 
@@ -235,8 +231,6 @@
             position: relative;
             margin-bottom: 12px;
             overflow: hidden;
-            background-size: cover;
-            background-position: center;
         }
 
         .card-img {
@@ -260,7 +254,7 @@
             justify-content: center;
             cursor: pointer;
             border: none;
-            z-index: 1;
+            z-index: 2;
             transition: transform 0.2s ease;
         }
 
@@ -282,32 +276,11 @@
             z-index: 1;
         }
 
-
         .restaurant-name {
             font-size: 18px;
             font-weight: 800;
             color: var(--text-dark);
-        }
-
-        .add-btn {
-            width: 32px;
-            height: 32px;
-            background: #F4F4F5;
-            border-radius: 50%;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .add-btn:hover {
-            background: var(--orange-primary);
-            color: #FFFFFF;
+            margin-bottom: 4px;
         }
 
         .restaurant-meta {
@@ -323,7 +296,6 @@
             color: var(--text-dark);
         }
 
-        /* Адаптив */
         @media (max-width: 992px) {
             .food-hero { flex-direction: column; }
             .order-status-card { width: 100%; }
@@ -337,7 +309,6 @@
 </head>
 <body>
 
-    <!-- ШАПКА -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -361,7 +332,6 @@
 
     <div class="taxi-container">
         
-        <!-- ВЕРХНИЙ БЛОК -->
         <div class="food-hero">
             <div class="food-hero-left">
                 <div class="hot-badge">ДОСТАВИМ ГОРЯЧИМ ЗА 30 МИНУТ</div>
@@ -378,9 +348,9 @@
                 <div class="address-search-box">
                     <div class="address-input-wrapper">
                         <div class="address-dot"></div>
-                        <input type="text" class="address-input" placeholder="Куда доставить?">
+                        <input type="text" class="address-input" id="address-input" placeholder="Куда доставить?">
                     </div>
-                    <button class="btn-find-rest">Найти рестораны</button>
+                    <button class="btn-find-rest" id="btn-find-rest">Найти рестораны</button>
                 </div>
 
                 <div class="food-stats-row">
@@ -390,13 +360,11 @@
                 </div>
             </div>
 
-            <!-- Карточка с поросятами -->
             <div class="order-status-card">
                 <img src="assets/svinke.jpg" alt="Фон заказа" class="order-card-bg">
             </div>
         </div>
 
-        <!-- КАТАЛОГ -->
         <div class="catalog-section">
             <div class="catalog-header">
                 <div class="catalog-title-group">
@@ -415,10 +383,9 @@
                 </div>
             </div>
 
-            <!-- Сетка ресторанов -->
             <div class="restaurants-grid" id="restaurants-grid">
                 
-                <div class="restaurant-card" data-category="asian">
+                <div class="restaurant-card" data-category="asian" data-price="450 ₽">
                     <div class="card-image-box">
                         <img src="assets/ichiraku.jpg" alt="Ichiraku Рамен" class="card-img">
                         <button class="fav-btn" aria-label="В избранное">
@@ -426,14 +393,14 @@
                         </button>
                         <div class="time-badge">25–35 мин</div>
                     </div>
+                    <div class="restaurant-name">Ichiraku Ramen</div>
                     <div class="restaurant-meta">Азиатская · Wok & Рамен</div>
                     <div class="restaurant-rating">4.9 рейтинг</div>
                 </div>
-                <div class="restaurant-card" data-category="asian">
+
+                <div class="restaurant-card" data-category="asian" data-price="600 ₽">
                     <div class="card-image-box">
-                        <!-- Картинка внутри блока, старый background-image убран -->
                         <img src="assets/tokpoki.jpg" alt="Токпоки" class="card-img">
-                        
                         <button class="fav-btn" aria-label="В избранное">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -441,30 +408,34 @@
                         </button>
                         <div class="time-badge">20–30 мин</div>
                     </div>
+                    <div class="restaurant-name">Tokpokki Bar</div>
                     <div class="restaurant-meta">Азиатская · Суши & Токпоки</div>
                     <div class="restaurant-rating">4.8 рейтинг</div>
                 </div>
-
-                <div class="restaurant-card" data-category="asian breakfast">
-                    <div class="card-image-box" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%), url('../assets/food3.jpg');">
+                <div class="restaurant-card" data-category="burgers" data-price="450 ₽">
+                    <div class="card-image-box">
+                        <img src="assets/byk.jpg" alt="Бургеры & Стейки" class="card-img">
                         <button class="fav-btn" aria-label="В избранное">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                         </button>
-                        <div class="time-badge">30–40 мин</div>
+                        <div class="time-badge">25–35 мин</div>
                     </div>
-                    <div class="restaurant-meta">Азиатская · Бао & Поке</div>
+                    <div class="restaurant-name">The Бык</div>
+                    <div class="restaurant-meta">Бургеры · Стейки & Мясо</div>
                     <div class="restaurant-rating">4.9 рейтинг</div>
                 </div>
 
-                <div class="restaurant-card" data-category="asian">
-                    <div class="card-image-box" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%), url('../assets/food4.jpg');">
+                <div class="restaurant-card" data-category="pizza" data-price="495 ₽">
+                    <div class="card-image-box">
+                        <img src="assets/dodo.jpg" alt="Пицца & Закуски" class="card-img">
                         <button class="fav-btn" aria-label="В избранное">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                         </button>
-                        <div class="time-badge">20–25 мин</div>
-                    </div>
-                    <div class="restaurant-meta">Азиатская · Фо Бо & Спринг-роллы</div>
-                    <div class="restaurant-rating">4.7 рейтинг</div>
+                        <div class="time-badge">20–30 мин</div>
+                        </div>
+                        <div class="restaurant-name">Додо Пицца</div>
+                        <div class="restaurant-meta">Пицца · Додстеры & Закуски</div>
+                        <div class="restaurant-rating">4.8 рейтинг</div>
                 </div>
 
             </div>
@@ -476,6 +447,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const filterButtons = document.querySelectorAll('.pill-btn');
             const restaurantCards = document.querySelectorAll('.restaurant-card');
+            const findBtn = document.getElementById('btn-find-rest');
+            const addressInput = document.getElementById('address-input');
+            const downloadBtn = document.querySelector('.btn-download');
+            const loginBtn = document.querySelector('.btn-login');
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -493,6 +468,45 @@
                             card.style.display = 'none';
                         }
                     });
+                });
+            });
+
+            if (findBtn) {
+                findBtn.addEventListener('click', () => {
+                    const address = addressInput.value.trim();
+                    if (address) {
+                        alert(`Ищем доступные рестораны по адресу:\n"${address}"`);
+                    } else {
+                        alert('Пожалуйста, введите адрес доставки!');
+                    }
+                });
+            }
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    alert('Ссылка на скачивание приложения SasaGo отправлена!');
+                });
+            }
+
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => {
+                    alert('Вход в аккаунт SasaGo временно недоступен. Попробуйте позже.');
+                });
+            }
+
+            restaurantCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.fav-btn')) {
+                        e.stopPropagation();
+                        alert('Ресторан добавлен в избранное!');
+                        return;
+                    }
+
+                    const name = card.querySelector('.restaurant-name').textContent;
+                    const price = card.getAttribute('data-price') || '350 ₽';
+                    const time = card.querySelector('.time-badge').textContent;
+
+                    alert(`Заказ оформлен! Едем в "${name}". Средний чек: ${price}, Время: ${time}`);
                 });
             });
         });

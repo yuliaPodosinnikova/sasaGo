@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SasaGo — Самокаты</title>
-    <!-- Подключение единого файла CSS -->
     <link rel="stylesheet" href="css/main.css">
     <style>
-        /* Специфичные стили только для страницы Самокатов */
-        
-        /* Грид характеристик 2x2 */
         .features-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -51,7 +47,6 @@
             color: var(--text-dark);
         }
 
-        /* Виджет самоката */
         .widget-title {
             font-size: 18px;
             font-weight: 800;
@@ -102,7 +97,6 @@
             height: 85px;
         }
 
-        /* Ползунок времени */
         .slider-header {
             display: flex;
             justify-content: space-between;
@@ -130,7 +124,6 @@
             margin-bottom: 24px;
         }
 
-        /* Детализация стоимости */
         .price-breakdown {
             background: var(--bg-orange-light);
             border-radius: 16px;
@@ -157,6 +150,12 @@
             padding-top: 10px;
         }
 
+        .btn-submit {
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+        }
+
         .widget-subtext {
             text-align: center;
             font-size: 11px;
@@ -165,7 +164,6 @@
             font-weight: 500;
         }
 
-        /* Секция зон покрытия */
         .zones-wrapper {
             margin-top: 40px;
         }
@@ -234,7 +232,6 @@
 </head>
 <body>
 
-    <!-- ЕДИНООБРАЗНАЯ ШАПКА -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
@@ -250,15 +247,17 @@
             </nav>
 
             <div class="nav-actions">
-                <button class="btn-login">Войти</button>
-                <button class="btn-download">Скачать</button>
+                <span id="user-balance-badge" class="balance-badge" style="display: none;">
+                    <span id="user-balance">0</span> б.
+                </span>
+                <button class="btn-login" id="auth-btn">Войти</button>
+                <button type="button" class="btn-download" id="download-app-btn">Скачать</button>
             </div>
         </div>
     </header>
 
     <div class="taxi-container">
         
-        <!-- ВЕРХНИЙ БЛОК -->
         <div class="hero-section">
             <div class="hero-left">
                 <div class="badge">
@@ -275,7 +274,6 @@
                     Найдите ближайший самокат, отсканируйте QR — и поехали. Всего 5 ₽/мин после разблокировки.
                 </p>
 
-                <!-- ХАРАКТЕРИСТИКИ (2x2) -->
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon-box">⚡</div>
@@ -311,7 +309,6 @@
                 </div>
             </div>
 
-            <!-- ПРАВАЯ ЧАСТЬ - ВИДЖЕТ -->
             <div class="hero-right">
                 <div class="order-widget">
                     <div class="widget-title">Рассчитать поездку</div>
@@ -333,7 +330,7 @@
                         <span class="orange-text" id="duration-val">30 мин</span>
                     </div>
 
-                    <input type="range" min="5" max="120" value="30" step="5" class="range-slider" id="time-slider" oninput="recalculate()">
+                    <input type="range" min="5" max="120" value="30" step="5" class="range-slider" id="time-slider">
 
                     <div class="range-limits">
                         <span>5 мин</span>
@@ -355,8 +352,7 @@
                         </div>
                     </div>
 
-                    <!-- Используем стандартизированную синюю/оранжевую кнопку из main.css -->
-                    <button type="button" class="btn-submit" onclick="alert('Отсканируйте QR-код в приложении!')">
+                    <button type="button" class="btn-submit" id="find-scooter-btn">
                         Найти самокат рядом
                     </button>
 
@@ -367,7 +363,6 @@
             </div>
         </div>
 
-        <!-- СЕКЦИЯ ЗОН ПОКРЫТИЯ -->
         <div class="zones-wrapper">
             <div class="zones-badge">ЗОНЫ ПОКРЫТИЯ</div>
             <h2 class="zones-title">
@@ -404,10 +399,13 @@
 
     </div>
 
-    <!-- Интерактивный калькулятор -->
+    <script src="js/app-state.js"></script>
     <script>
         function recalculate() {
-            const minutes = parseInt(document.getElementById('time-slider').value);
+            const timeSlider = document.getElementById('time-slider');
+            if (!timeSlider) return;
+
+            const minutes = parseInt(timeSlider.value);
             const pricePerMin = 5;
             const unlockFee = 50;
             
@@ -418,6 +416,32 @@
             document.getElementById('ride-price-val').textContent = `${minutes} мин × 5 ₽`;
             document.getElementById('total-price-val').textContent = totalPrice + ' ₽';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Пересчет цены при перемещении ползунка
+            const timeSlider = document.getElementById('time-slider');
+            if (timeSlider) {
+                timeSlider.addEventListener('input', recalculate);
+            }
+
+            // Обработка клика по кнопке "Скачать"
+            const downloadBtn = document.getElementById('download-app-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Ссылка на скачивание приложения SasaGo отправлена!');
+                });
+            }
+
+            // Обработка клика по кнопке "Найти самокат рядом"
+            const findScooterBtn = document.getElementById('find-scooter-btn');
+            if (findScooterBtn) {
+                findScooterBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Отсканируйте QR-код в приложении!');
+                });
+            }
+        });
     </script>
 </body>
 </html>
