@@ -2,40 +2,500 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>sasaЕда — Доставка</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/forms.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SasaGo — Еда</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* HERO СЕКЦИЯ */
+        .food-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            margin: 40px 0 50px;
+        }
+
+        .food-hero-left {
+            max-width: 520px;
+        }
+
+        .hot-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--orange-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+        }
+
+        .hot-badge::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: var(--orange-primary);
+            border-radius: 50%;
+        }
+
+        .food-title {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+        }
+
+        .food-title span {
+            color: var(--orange-primary);
+        }
+
+        .food-desc {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-subtle);
+            font-weight: 500;
+            margin-bottom: 32px;
+            max-width: 440px;
+        }
+
+        /* Поле ввода адреса */
+        .address-search-box {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 8px 8px 8px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            margin-bottom: 24px;
+            max-width: 480px;
+        }
+
+        .address-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .address-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--orange-primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .address-input {
+            border: none;
+            outline: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            width: 100%;
+            background: transparent;
+        }
+
+        .address-input::placeholder {
+            color: #A1A1AA;
+            font-weight: 500;
+        }
+
+        .btn-find-rest {
+            background: var(--orange-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 18px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .btn-find-rest:hover {
+            background: var(--orange-hover);
+        }
+
+        .food-stats-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 13px;
+            color: var(--text-subtle);
+            font-weight: 700;
+        }
+
+        /* Карточка с фото без черной рамки */
+        .order-status-card {
+            width: 460px;
+            height: 400px;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .order-card-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* СЕКЦИЯ КАТАЛОГА */
+        .catalog-section {
+            margin: 60px 0;
+        }
+
+        .catalog-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .catalog-title-group .sub-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--orange-primary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .catalog-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.1;
+        }
+
+        .category-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pill-btn {
+            background: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .pill-btn:hover {
+            background: #E4E4E7;
+        }
+
+        .pill-btn.active {
+            background: #18181B;
+            color: #FFFFFF;
+        }
+
+        /* Сетка карточек */
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .restaurant-card {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-image-box {
+            width: 100%;
+            height: 220px;
+            background: #E4E4E7;
+            border-radius: 24px;
+            position: relative;
+            margin-bottom: 12px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .fav-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .fav-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .time-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            z-index: 1;
+        }
+
+
+        .restaurant-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .add-btn {
+            width: 32px;
+            height: 32px;
+            background: #F4F4F5;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-btn:hover {
+            background: var(--orange-primary);
+            color: #FFFFFF;
+        }
+
+        .restaurant-meta {
+            font-size: 13px;
+            color: var(--text-subtle);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .restaurant-rating {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        /* Адаптив */
+        @media (max-width: 992px) {
+            .food-hero { flex-direction: column; }
+            .order-status-card { width: 100%; }
+            .restaurants-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 576px) {
+            .restaurants-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="app-container">
-    <header>
-        <a href="index.html" class="logo">🍊 sasaGo</a>
-        <div class="balance-card">Sasa Плюс: 500 Б</div>
-    </header>
+    <!-- ШАПКА -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/sasavot.jpg" alt="SasaGo" class="logo-img">
+                <span class="logo-text">SasaGo</span>
+            </a>
 
-    <main class="content">
-        <a href="index.html" class="btn btn-back">← На главную</a>
-        <h2>🍔 sasaЕда — Заказ блюд</h2>
+            <nav class="nav-links">
+                <a href="taxi.html" class="nav-tab">Такси</a>
+                <a href="scooters.html" class="nav-tab">Самокаты</a>
+                <a href="food.html" class="nav-tab active">Еда</a>
+                <a href="invest.html" class="nav-tab">Инвестиции</a>
+            </nav>
 
-        <div class="menu-list">
-            <div class="menu-item">
-                <div>
-                    <b>Острый Дошик 'Экстрим'</b>
-                    <div class="cashback-badge">+15 Б кэшбек</div>
-                </div>
-                <button class="btn" onclick="alert('Заказ оформлен!')">150 ₽</button>
-            </div>
-            <div class="menu-item">
-                <div>
-                    <b>Кибер-Шаурма с сыром</b>
-                    <div class="cashback-badge">+28 Б кэшбек</div>
-                </div>
-                <button class="btn" onclick="alert('Заказ оформлен!')">280 ₽</button>
+            <div class="nav-actions">
+                <button class="btn-login">Войти</button>
+                <button class="btn-download">Скачать</button>
             </div>
         </div>
-    </main>
-</div>
+    </header>
 
+    <div class="taxi-container">
+        
+        <!-- ВЕРХНИЙ БЛОК -->
+        <div class="food-hero">
+            <div class="food-hero-left">
+                <div class="hot-badge">ДОСТАВИМ ГОРЯЧИМ ЗА 30 МИНУТ</div>
+
+                <h1 class="food-title">
+                    Любимая еда.<br>
+                    <span>Уже в пути.</span>
+                </h1>
+
+                <p class="food-desc">
+                    Рестораны рядом, честное время доставки и персональная подборка блюд на каждый день.
+                </p>
+
+                <div class="address-search-box">
+                    <div class="address-input-wrapper">
+                        <div class="address-dot"></div>
+                        <input type="text" class="address-input" placeholder="Куда доставить?">
+                    </div>
+                    <button class="btn-find-rest">Найти рестораны</button>
+                </div>
+
+                <div class="food-stats-row">
+                    <span>0 ₽ за доставку впервые</span>
+                    <span>4.9 средняя оценка</span>
+                    <span>650+ ресторанов</span>
+                </div>
+            </div>
+
+            <!-- Карточка с поросятами -->
+            <div class="order-status-card">
+                <img src="assets/svinke.jpg" alt="Фон заказа" class="order-card-bg">
+            </div>
+        </div>
+
+        <!-- КАТАЛОГ -->
+        <div class="catalog-section">
+            <div class="catalog-header">
+                <div class="catalog-title-group">
+                    <div class="sub-badge">РЯДОМ С ВАМИ</div>
+                    <h2 class="catalog-title">Что будем есть?</h2>
+                </div>
+
+                <div class="category-pills">
+                    <button class="pill-btn active" data-category="all">Все</button>
+                    <button class="pill-btn" data-category="breakfast">Завтраки</button>
+                    <button class="pill-btn" data-category="pizza">Пицца</button>
+                    <button class="pill-btn" data-category="burgers">Бургеры</button>
+                    <button class="pill-btn" data-category="asian">Азиатская</button>
+                    <button class="pill-btn" data-category="healthy">Здоровая еда</button>
+                    <button class="pill-btn" data-category="desserts">Десерты</button>
+                </div>
+            </div>
+
+            <!-- Сетка ресторанов -->
+            <div class="restaurants-grid" id="restaurants-grid">
+                
+                <div class="restaurant-card" data-category="asian">
+                    <div class="card-image-box">
+                        <img src="assets/ichiraku.jpg" alt="Ichiraku Рамен" class="card-img">
+                        <button class="fav-btn" aria-label="В избранное">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </button>
+                        <div class="time-badge">25–35 мин</div>
+                    </div>
+                    <div class="restaurant-meta">Азиатская · Wok & Рамен</div>
+                    <div class="restaurant-rating">4.9 рейтинг</div>
+                </div>
+                <div class="restaurant-card" data-category="asian">
+                    <div class="card-image-box">
+                        <!-- Картинка внутри блока, старый background-image убран -->
+                        <img src="assets/tokpoki.jpg" alt="Токпоки" class="card-img">
+                        
+                        <button class="fav-btn" aria-label="В избранное">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </button>
+                        <div class="time-badge">20–30 мин</div>
+                    </div>
+                    <div class="restaurant-meta">Азиатская · Суши & Токпоки</div>
+                    <div class="restaurant-rating">4.8 рейтинг</div>
+                </div>
+
+                <div class="restaurant-card" data-category="asian breakfast">
+                    <div class="card-image-box" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%), url('../assets/food3.jpg');">
+                        <button class="fav-btn" aria-label="В избранное">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </button>
+                        <div class="time-badge">30–40 мин</div>
+                    </div>
+                    <div class="restaurant-meta">Азиатская · Бао & Поке</div>
+                    <div class="restaurant-rating">4.9 рейтинг</div>
+                </div>
+
+                <div class="restaurant-card" data-category="asian">
+                    <div class="card-image-box" style="background-image: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%), url('../assets/food4.jpg');">
+                        <button class="fav-btn" aria-label="В избранное">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#18181B" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </button>
+                        <div class="time-badge">20–25 мин</div>
+                    </div>
+                    <div class="restaurant-meta">Азиатская · Фо Бо & Спринг-роллы</div>
+                    <div class="restaurant-rating">4.7 рейтинг</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.pill-btn');
+            const restaurantCards = document.querySelectorAll('.restaurant-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const selectedCategory = button.getAttribute('data-category');
+
+                    restaurantCards.forEach(card => {
+                        const cardCategories = card.getAttribute('data-category').split(' ');
+                        
+                        if (selectedCategory === 'all' || cardCategories.includes(selectedCategory)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

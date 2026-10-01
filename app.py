@@ -83,7 +83,8 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
             '/index.html': 'templates/index.html',
             '/taxi.html': 'templates/taxi.html',
             '/scooters.html': 'templates/scooters.html',
-            '/invest.html': 'templates/invest.html'
+            '/invest.html': 'templates/invest.html',
+            '/food.html': 'templates/food.html'
         }
 
         if self.path in routes:
