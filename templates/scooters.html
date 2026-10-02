@@ -250,7 +250,7 @@
                 <span id="user-balance-badge" class="balance-badge" style="display: none;">
                     <span id="user-balance">0</span> б.
                 </span>
-                <button class="btn-login" id="auth-btn">Войти</button>
+                <button type="button" class="btn-login" id="auth-btn">Войти</button>
                 <button type="button" class="btn-download" id="download-app-btn">Скачать</button>
             </div>
         </div>
@@ -418,13 +418,23 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Пересчет цены при перемещении ползунка
+            recalculate();
+
             const timeSlider = document.getElementById('time-slider');
             if (timeSlider) {
                 timeSlider.addEventListener('input', recalculate);
             }
 
-            // Обработка клика по кнопке "Скачать"
+            // Обработчик для кнопки "Войти"
+            const authBtn = document.getElementById('auth-btn');
+            if (authBtn) {
+                authBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Вход в аккаунт SasaGo временно недоступен. Попробуйте позже.');
+                });
+            }
+
+            // Обработчик для кнопки "Скачать"
             const downloadBtn = document.getElementById('download-app-btn');
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', function(e) {
@@ -433,7 +443,7 @@
                 });
             }
 
-            // Обработка клика по кнопке "Найти самокат рядом"
+            // Обработчик для кнопки поиска самоката
             const findScooterBtn = document.getElementById('find-scooter-btn');
             if (findScooterBtn) {
                 findScooterBtn.addEventListener('click', function(e) {

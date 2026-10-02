@@ -157,12 +157,25 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            border: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        /* Чёткое выделение без свечения */
+        .plan-card.active-plan {
+            border-color: var(--orange-primary);
+            transform: translateY(-4px);
         }
 
         .plan-card.featured {
             background: var(--orange-primary);
             color: #FFFFFF;
-            box-shadow: 0 12px 32px rgba(255, 107, 0, 0.3);
+            box-shadow: none;
+        }
+
+        .plan-card.featured.active-plan {
+            border-color: var(--text-dark);
         }
 
         .plan-badge-pop {
@@ -256,6 +269,16 @@
             color: var(--orange-primary);
         }
 
+        .plan-card.active-plan .btn-plan {
+            background: var(--text-dark);
+            color: #FFFFFF;
+        }
+
+        .plan-card.featured.active-plan .btn-plan {
+            background: var(--text-dark);
+            color: #FFFFFF;
+        }
+
         .news-wrapper {
             margin-top: 40px;
         }
@@ -330,8 +353,11 @@
             </nav>
     
             <div class="nav-actions">
-                <button class="btn-login">Войти</button>
-                <button class="btn-download">Скачать</button>
+                <span id="user-balance-badge" class="balance-badge" style="display: none;">
+                    <span id="user-balance">0</span> б.
+                </span>
+                <button type="button" class="btn-login" id="auth-btn">Войти</button>
+                <button type="button" class="btn-download" id="download-app-btn">Скачать</button>
             </div>
         </div>
     </header>
@@ -355,9 +381,9 @@
                 </p>
 
                 <div class="tags-container">
-                    <div class="tag-pill">🔒 Защита вклада</div>
-                    <div class="tag-pill">📊 Прозрачная отчётность</div>
-                    <div class="tag-pill">💸 Ежемесячные выплаты</div>
+                    <div class="tag-pill">Защита вклада</div>
+                    <div class="tag-pill">Прозрачная отчётность</div>
+                    <div class="tag-pill">Ежемесячные выплаты</div>
                 </div>
             </div>
 
@@ -425,7 +451,7 @@
             </h2>
 
             <div class="plans-grid">
-                <div class="plan-card">
+                <div class="plan-card" data-plan="Старт" data-min-amount="1000" data-min-term="3">
                     <div>
                         <div class="plan-icon">🌱</div>
                         <div class="plan-name">Старт</div>
@@ -436,8 +462,8 @@
                     <button class="btn-plan">Выбрать план</button>
                 </div>
 
-                <div class="plan-card featured">
-                    <div class="plan-badge-pop">Популярный</div>
+                <div class="plan-card featured" data-plan="Рост" data-min-amount="10000" data-min-term="12">
+                    <div class="plan-badge-pop" id="badge-rost">Популярный</div>
                     <div>
                         <div class="plan-icon-bg">📈</div>
                         <div class="plan-name">Рост</div>
@@ -448,7 +474,7 @@
                     <button class="btn-plan">Выбрать план</button>
                 </div>
 
-                <div class="plan-card">
+                <div class="plan-card" data-plan="Премиум" data-min-amount="100000" data-min-term="24">
                     <div>
                         <div class="plan-icon">💎</div>
                         <div class="plan-name">Премиум</div>
@@ -497,9 +523,24 @@
 
     </div>
 
+    <script src="js/app-state.js"></script>
     <script>
         function formatNumber(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+
+        function highlightPlan(planName) {
+            const cards = document.querySelectorAll('.plan-card');
+            cards.forEach(card => {
+                const btn = card.querySelector('.btn-plan');
+                if (card.dataset.plan === planName) {
+                    card.classList.add('active-plan');
+                    if (btn) btn.textContent = 'Выбран';
+                } else {
+                    card.classList.remove('active-plan');
+                    if (btn) btn.textContent = 'Выбрать план';
+                }
+            });
         }
 
         function calculateInvest() {
@@ -528,9 +569,52 @@
             document.getElementById('res-total').textContent = formatNumber(total) + ' ₽';
 
             document.getElementById('res-tariff').textContent = `Ставка ${Math.round(rate * 100)}% годовых · тариф «${planName}»`;
+
+            highlightPlan(planName);
         }
 
-        calculateInvest();
+        function selectPlan(planCard) {
+            const minAmount = planCard.dataset.minAmount;
+            const minTerm = planCard.dataset.minTerm;
+
+            if (minAmount) document.getElementById('amount-slider').value = minAmount;
+            if (minTerm) document.getElementById('term-slider').value = minTerm;
+
+            calculateInvest();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateInvest();
+
+            const planCards = document.querySelectorAll('.plan-card');
+            planCards.forEach(card => {
+                const btn = card.querySelector('.btn-plan');
+                if (btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectPlan(card);
+                    });
+                }
+                card.addEventListener('click', function() {
+                    selectPlan(card);
+                });
+            });
+
+            const authBtn = document.getElementById('auth-btn');
+            if (authBtn) {
+                authBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Вход в аккаунт SasaGo временно недоступен. Попробуйте позже.');
+                });
+            }
+            const downloadBtn = document.getElementById('download-app-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Ссылка на скачивание приложения SasaGo отправлена!');
+                });
+            }
+        });
     </script>
 </body>
 </html>

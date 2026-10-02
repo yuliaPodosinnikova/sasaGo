@@ -14,7 +14,6 @@ SESSIONS = {}
 
 def load_users():
     if not os.path.exists(USERS_FILE):
-        # Базовый пользователь по умолчанию
         default_users = {
             "sasa": {
                 "password_hash": hash_password("123456"),
@@ -119,7 +118,7 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
         users = load_users()
         username, user_data = self.get_current_user()
 
-        # ------------------ РЕГИСТРАЦИЯ ------------------
+        # РЕГИСТРАЦИЯ
         if self.path == '/api/register':
             login = data.get('login', '').strip().lower()
             password = data.get('password', '')
@@ -150,7 +149,7 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
             )
             return
 
-        # ------------------ АВТОРИЗАЦИЯ ------------------
+        # АВТОРИЗАЦИЯ
         elif self.path == '/api/login':
             login = data.get('login', '').strip().lower()
             password = data.get('password', '')
@@ -167,7 +166,7 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
             )
             return
 
-        # ------------------ ВЫХОД (LOGOUT) ------------------
+        # ВЫХОД (LOGOUT)
         elif self.path == '/api/logout':
             cookie_header = self.headers.get('Cookie')
             if cookie_header:
@@ -177,7 +176,7 @@ class SasaGoHandler(SimpleHTTPRequestHandler):
             self.send_json_response({"status": "success"})
             return
 
-        # ------------------ ДЕЙСТВИЯ С БАЛАНСОМ ------------------
+        # ДЕЙСТВИЯ С БАЛАНСОМ
         if not user_data:
             self.send_json_response({"status": "error", "message": "Авторизуйтесь!"}, 401)
             return

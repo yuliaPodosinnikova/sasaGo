@@ -501,12 +501,6 @@
                         alert('Ресторан добавлен в избранное!');
                         return;
                     }
-
-                    const name = card.querySelector('.restaurant-name').textContent;
-                    const price = card.getAttribute('data-price') || '350 ₽';
-                    const time = card.querySelector('.time-badge').textContent;
-
-                    alert(`Заказ оформлен! Едем в "${name}". Средний чек: ${price}, Время: ${time}`);
                 });
             });
         });
